@@ -1,0 +1,22 @@
+.color-red {
+  color: red;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.student-item{
+  background-color: lightgrey;
+  padding: 10px;
+  margin: 10px;
+}
+#student-form{
+  background-color: lightgrey;
+  padding: 10px;
+  margin: 10px;
+}
+.form-control{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
