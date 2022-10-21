@@ -76,7 +76,6 @@ if (localStorageStudentsData){
   })
 }
 
-
 changeRangeOutput();
 
 
@@ -112,6 +111,8 @@ studentForm.addEventListener('submit', (event) => {
   interests.forEach(interest => {
     interestsArr.push(interest.value)
   });
+
+  
   let newLocalStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
   let newStudent = {
     name,
@@ -123,8 +124,14 @@ studentForm.addEventListener('submit', (event) => {
     group: group,
     interests: interestsArr,
   }
+
   newLocalStorageStudentsData.push(newStudent)
   localStorage.setItem('localStorageStudentData',JSON.stringify(newLocalStorageStudentsData))
+
+
+
+
+
 
 
 
@@ -136,72 +143,7 @@ studentForm.addEventListener('submit', (event) => {
     return;
   }
 
-
-
-  //////////////////////vienoda///////////
-  let studentItem = document.createElement('div');
-  studentItem.classList.add('student-item');
-  let nameElement = document.createElement('p');
-  nameElement.innerHTML = `<strong>Name:</strong> <span class="nameSpenius">${name}</span>`;
-  let surnameElement = document.createElement('p');
-  surnameElement.innerHTML = `<strong>Surname:</strong> <span class="surnameSpenius">${surname}</span>`;
-  let ageElement = document.createElement('p');
-  ageElement.innerHTML = `<strong>Age:</strong> <span class="ageSpenius">${age}</span>`;
-  let emailElement = document.createElement('p');
-  emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
-  let phoneElement = document.createElement('p');
-  phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
-  let itKnowledgeElement = document.createElement('p');
-  itKnowledgeElement.innerHTML = `<strong>IT knowledge:</strong> <span class="ITKnowledgeSpenius">${itKnowledge}</span>`;
-  let groupElement = document.createElement('p');
-  groupElement.innerHTML = `<strong>Group:</strong> <span class="groupSpenius">${group}</span>`;
-  let interestWrapperElement = document.createElement('div');
-  interestWrapperElement.classList.add('interest-wrapper');
-  let interestTitleElement = document.createElement('h3');
-  interestTitleElement.textContent = 'Interests:';
-  let interestListElement = document.createElement('ul');
-
-  interests.forEach(interest => {
-    let interestItem = document.createElement('li');
-    interestItem.textContent = interest.value;
-    interestListElement.append(interestItem);
-  });
- ///////////////////////vienoda/////////////////////////////
-  ///////////////////////vienoda/////////////////////////////
-  interestWrapperElement.append(interestTitleElement, interestListElement);
-  let privateInfoButton = document.createElement('button');
-  privateInfoButton.textContent = 'Show personal info';
-  privateInfoButton.classList.add('private-info-button', 'show');
-  let dataHidden = true;
-  privateInfoButton.addEventListener('click', () => {
-    let privateEmail = emailElement.querySelector('.hidden-area');
-    let privatePhone = phoneElement.querySelector('.hidden-area');
-    if (dataHidden) {
-      privateEmail.textContent = email;
-      privatePhone.textContent = phone;
-      privateInfoButton.textContent = 'Hide personal info';
-    } else {
-      privateEmail.textContent = '****';
-      privatePhone.textContent = '****';
-      privateInfoButton.textContent = 'Show personal info';
-    }
-    dataHidden = !dataHidden;
-  });
-  let removeStudentButton = document.createElement('button');
-  removeStudentButton.textContent = 'Remove student';
-  removeStudentButton.addEventListener('click', () => {
-    studentItem.remove();
-    let removedStudentText = `Student (${name} ${surname}) successfully removed.`;
-    renderAlertMessage(removedStudentText);
-  });
-  studentItem.append(nameElement, surnameElement, ageElement, emailElement, phoneElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, removeStudentButton);
-  studentsList.prepend(studentItem);
-  let createdStudentText = `Student created (${name} ${surname})`;
-  renderAlertMessage(createdStudentText);
-  ////////////////Vienoda auksciau////////////////
-
-
-
+  renderSingleStudent(newStudent)
 
   //------ nuresetina forma
   event.target.reset(); 
@@ -216,20 +158,6 @@ studentForm.addEventListener('submit', (event) => {
   localStorage.removeItem('interest');
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function renderSingleStudent(data) {
   let name = data.name;
   let surname = data.surname;
@@ -242,32 +170,7 @@ function renderSingleStudent(data) {
   let inputErrorMessages = studentForm.querySelectorAll('.input-error-message');
   inputErrorMessages.forEach(message => message.remove());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // if (!validationStudent(data)) {
-  //   let errorMessage = 'Some fields are missing...';
-  //   renderAlertMessage(errorMessage, 'color-red');
-  //   return;
-  // }
-
-  ///////////////////vienoda////////////
+  ////--------------Create student item---- spenius ir visokius sudus
   let studentItem = document.createElement('div');
   studentItem.classList.add('student-item');
   let nameElement = document.createElement('p');
@@ -295,8 +198,7 @@ function renderSingleStudent(data) {
     interestItem.textContent = interest;
     interestListElement.append(interestItem);
   });
- ///////////////////////vienoda/////////////////////
-  ///////////////////////vienoda/////////////////////////////
+
   interestWrapperElement.append(interestTitleElement, interestListElement);
   let privateInfoButton = document.createElement('button');
   privateInfoButton.textContent = 'Show personal info';
@@ -328,10 +230,6 @@ function renderSingleStudent(data) {
   let createdStudentText = `Student created (${name} ${surname})`;
   renderAlertMessage(createdStudentText);
 }
-////////////////Vienoda auksciau////////////////
-
-
-
 
 formDataInLocalStorage(studentForm);
 
