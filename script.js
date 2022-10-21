@@ -50,6 +50,8 @@ let initialData = [
   interests: ['PHP'],
 },
 ]
+let = localStorageStudentsData = []
+// localStorage.setItem('localStorageStudentData',JSON.stringify(initialData))
 
 let nameInput = document.getElementById('student-name');
 let surnameInput = document.getElementById('student-surname');
@@ -66,32 +68,23 @@ let searchName = document.querySelector('#nameSearch')
 let studentForm = document.querySelector('#student-form');
 let studentsList = document.querySelector('#students-list');
 
-let = localStorageStudentsData = []
-// localStorage.setItem('localStorageStudentData',JSON.stringify(initialData))
+
 localStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
 
 if (localStorageStudentsData){
   localStorageStudentsData.map(student => {
     renderSingleStudent(student);
   })
+} else {
+  localStorageStudentsData = []
+  localStorage.setItem('localStorageStudentData',JSON.stringify(localStorageStudentsData))
 }
 
 changeRangeOutput();
 
-
-
-
-
-
-
-
 studentForm.addEventListener('submit', (event) => {
   event.preventDefault();
   let isThisForm = true
-
-
-
-
 
   let elements = event.target.elements;
   let name = elements.name.value;
@@ -105,7 +98,6 @@ studentForm.addEventListener('submit', (event) => {
   let inputErrorMessages = event.target.querySelectorAll('.input-error-message');
   inputErrorMessages.forEach(message => message.remove());
   
-
   //------cia koreguoja interest is objektu i masyva
   let interestsArr = []
   interests.forEach(interest => {
@@ -124,7 +116,7 @@ studentForm.addEventListener('submit', (event) => {
     group: group,
     interests: interestsArr,
   }
-
+ 
   newLocalStorageStudentsData.push(newStudent)
   localStorage.setItem('localStorageStudentData',JSON.stringify(newLocalStorageStudentsData))
 
@@ -172,33 +164,33 @@ function renderSingleStudent(data) {
 
   ////--------------Create student item---- spenius ir visokius sudus
   let studentItem = document.createElement('div');
-  studentItem.classList.add('student-item');
   let nameElement = document.createElement('p');
-  nameElement.innerHTML = `<strong>Name:</strong> <span class="nameSpenius">${name}</span>`;
   let surnameElement = document.createElement('p');
-  surnameElement.innerHTML = `<strong>Surname:</strong> <span class="surnameSpenius">${surname}</span>`;
   let ageElement = document.createElement('p');
-  ageElement.innerHTML = `<strong>Age:</strong> <span class="ageSpenius">${age}</span>`;
   let emailElement = document.createElement('p');
-  emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
   let phoneElement = document.createElement('p');
-  phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
   let itKnowledgeElement = document.createElement('p');
-  itKnowledgeElement.innerHTML = `<strong>IT knowledge:</strong> <span class="ITKnowledgeSpenius">${itKnowledge}</span>`;
   let groupElement = document.createElement('p');
-  groupElement.innerHTML = `<strong>Group:</strong> <span class="groupSpenius">${group}</span>`;
   let interestWrapperElement = document.createElement('div');
-  interestWrapperElement.classList.add('interest-wrapper');
   let interestTitleElement = document.createElement('h3');
-  interestTitleElement.textContent = 'Interests:';
   let interestListElement = document.createElement('ul');
-
   interests.forEach(interest => {
     let interestItem = document.createElement('li');
     interestItem.textContent = interest;
     interestListElement.append(interestItem);
   });
 
+  studentItem.classList.add('student-item');
+  nameElement.innerHTML = `<strong>Name:</strong> <span class="nameSpenius">${name}</span>`;
+  surnameElement.innerHTML = `<strong>Surname:</strong> <span class="surnameSpenius">${surname}</span>`;
+  ageElement.innerHTML = `<strong>Age:</strong> <span class="ageSpenius">${age}</span>`;
+  emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
+  phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
+  itKnowledgeElement.innerHTML = `<strong>IT knowledge:</strong> <span class="ITKnowledgeSpenius">${itKnowledge}</span>`;
+  groupElement.innerHTML = `<strong>Group:</strong> <span class="groupSpenius">${group}</span>`;
+  interestWrapperElement.classList.add('interest-wrapper');
+  interestTitleElement.textContent = 'Interests:';
+ 
   interestWrapperElement.append(interestTitleElement, interestListElement);
   let privateInfoButton = document.createElement('button');
   privateInfoButton.textContent = 'Show personal info';
