@@ -1,5 +1,4 @@
 let = localStorageStudentsData = []
-// zzzzz
 localStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
 let studentForm = document.querySelector('#student-form');
 let studentsList = document.querySelector('#students-list');
