@@ -1,68 +1,14 @@
-let initialData = [
-  {
-    name: 'Kyle',
-    surname: 'Doe',
-    age: 30,
-    phone: 4565464645,
-    email: 'name@surname.com',
-    itKnowledge: 8,
-    group: 'feu 5',
-    interests: ['JavaScript', 'PHP'],
-  },
-  {
-    name: 'Tom',
-    surname: 'Tomy',
-    age: 54,
-    phone: 87964631321,
-    email: 'name2@surname.com',
-    itKnowledge: 4,
-    group: 'feu 3',
-    interests: [],
-  },
-  {
-    name: 'Kate',
-    surname: 'Moss',
-    age: 45,
-    phone: 87964631321,
-    email: 'name2@surname.com',
-    itKnowledge: 10,
-    group: 'feu 1',
-    interests: ['C++', 'PHP'],
-  },
-  {
-    name: 'Zoe',
-    surname: 'Lambert',
-    age: 18,
-    phone: 87964631321,
-    email: 'name2@surname.com',
-    itKnowledge: 1,
-    group: 'feu 4',
-    interests: ['PHP', 'Node.js', 'JavaScript'],
-  },
-  {
-    name: 'Rod',
-    surname: 'Clucher',
-    age: 45,
-    phone: 87964631321,
-    email: 'name2@surname.com',
-    itKnowledge: 7,
-    group: 'feu 2',
-    interests: ['PHP'],
-  },
-];
-
 let = localStorageStudentsData = []
 
 localStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
-
 let studentForm = document.querySelector('#student-form');
 let studentsList = document.querySelector('#students-list');
-
 if (localStorageStudentsData){
   localStorageStudentsData.map(student => {
     renderSingleStudent(student);
   })
 }
+
 function renderSingleStudent(data) {
   let name = data.name;
   let surname = data.surname;
@@ -189,6 +135,7 @@ function changeRangeOutput() {
   });
 }
 changeRangeOutput();
+
 studentForm.addEventListener('submit', (event) => {
   event.preventDefault();
   let elements = event.target.elements;
@@ -240,6 +187,7 @@ studentForm.addEventListener('submit', (event) => {
       }
     }
   });
+
   if (!formIsValid) {
     let errorMessage = 'Some fields are missing...';
     renderAlertMessage(errorMessage, 'color-red');
@@ -274,6 +222,7 @@ studentForm.addEventListener('submit', (event) => {
     interestListElement.append(interestItem);
     interestsArr.push(interest.value)
   });
+
   interestWrapperElement.append(interestTitleElement, interestListElement);
   let privateInfoButton = document.createElement('button');
   privateInfoButton.textContent = 'Show personal info';
@@ -308,12 +257,12 @@ studentForm.addEventListener('submit', (event) => {
 
   let newLocalStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
   let newStudent = {
-    name: name,
-    surname: surname,
-    age: age,
-    phone: phone,
-    email: email,
-    itKnowledge: itKnowledge,
+    name,
+    surname,
+    age,
+    phone,
+    email,
+    itKnowledge,
     group: group,
     interests: interestsArr,
   }
@@ -348,6 +297,7 @@ function checkInputData(input, text) {
   input.after(inputErrorMessage);
   inputErrorMessage.textContent = text;
 }
+
 let nameInput = document.getElementById('student-name');
 let surnameInput = document.getElementById('student-surname');
 let ageInput = document.getElementById('student-age');
@@ -366,11 +316,8 @@ function formDataInLocalStorage(form) {
   let localGroup = localStorage.getItem('group');
   let localInterests = JSON.parse(localStorage.getItem('interest'));
   let nameInput = form.elements.name;
-  console.log(nameInput)
-  console.log(localName)
 
-  if (localName)
-    {console.log(localName === null)
+  if (localName){
     let surnameInput = form.elements.surname;
     let ageInput = form.elements.age;
     let phoneInput = form.elements.phone;
@@ -384,6 +331,7 @@ function formDataInLocalStorage(form) {
     emailInput.value = localEmail;
     itKnowledgeInput.value = localItKnowledge;
     groupInput.value = localGroup;
+
     if (localInterests) {
       localInterests.map(interestValue => {
         let interestElement = document.querySelector(`[value="${interestValue}"]`);
@@ -393,6 +341,7 @@ function formDataInLocalStorage(form) {
       });
     }
   }
+
   form.addEventListener('input', (event) => {
     let activeInput = event.target;
     let inputName = activeInput.name;
@@ -405,27 +354,25 @@ function formDataInLocalStorage(form) {
     });
     localStorage.setItem('interest', JSON.stringify(interestValues));
   })
+
 }
+
 formDataInLocalStorage(studentForm);
 
 let searchForm = document.querySelector('#search-form')
 let searchName = document.querySelector('#nameSearch')
 
 searchForm.addEventListener("submit", (eventSubmit) => {
-  console.clear()
   eventSubmit.preventDefault();
   let selection = document.querySelector('#studFilter').value
-  console.log('Selected:',selection)
   let searchInput = eventSubmit.target.nameSearch.value.toLowerCase()
   let allStudentsItems = document.querySelectorAll('.student-item')
-  console.log('Searching:',searchInput)
     allStudentsItems.forEach(element =>{
       let getName = element.querySelector('.nameSpenius').textContent.toLowerCase()  
       let getSurname = element.querySelector('.surnameSpenius').textContent.toLowerCase()
       let getITKnowledge = element.querySelector('.ITKnowledgeSpenius').textContent.toLowerCase()
       let getAge = element.querySelector('.ageSpenius').textContent.toLowerCase()
       let getGroup = element.querySelector('.groupSpenius').textContent.toLowerCase()
-console.log(getAge)
       if ((selection === 'name') && (getName.includes(searchInput))){
         element.style.display = 'block'
       } else if ((selection === 'surname') && (getSurname.includes(searchInput))){
@@ -435,10 +382,6 @@ console.log(getAge)
       } else if ((selection === 'ITKnowledge') && (getITKnowledge === searchInput)){
         element.style.display = 'block'
       } else if ((selection === 'group') && (getGroup.includes(searchInput))){
-        console.log(selection === 'group')
-        console.log(searchInput)
-        console.log(getGroup)
-        
         element.style.display = 'block'
       } else {
         element.style.display = 'none'

@@ -6,17 +6,16 @@
   border-color: red;
 }
 
-.student-item{
-  background-color: lightgrey;
-  padding: 10px;
-  margin: 10px;
-}
-#student-form{
-  background-color: lightgrey;
-  padding: 10px;
-  margin: 10px;
-}
 .form-control{
   margin-top: 5px;
   margin-bottom: 5px;
+}
+#search-form, #student-form, .student-item{
+ background-color: lightgrey;
+ padding: 10px;
+ margin: 10px;
+ box-shadow: 1px 1px 3px 2px #b9b9b9;
+}
+fieldset{
+  margin-bottom: 10px;
 }
