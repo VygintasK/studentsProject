@@ -106,13 +106,13 @@ studentForm.addEventListener('submit', (event) => {
   inputErrorMessages.forEach(message => message.remove());
   
 
-  //------cia atidaro LOCAL sukuria studento OBJEKTA ikelia I LOCAL
+  //------cia koreguoja interest is objektu i masyva
   let interestsArr = []
   interests.forEach(interest => {
     interestsArr.push(interest.value)
   });
 
-  
+  //------cia atidaro LOCAL sukuria studento OBJEKTA ikelia I LOCAL
   let newLocalStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
   let newStudent = {
     name,
