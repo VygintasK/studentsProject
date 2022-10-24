@@ -61,13 +61,7 @@ let = localStorageStudentsData = []
 
 
 
-renderStudOrEmptyArrFromLocal()
 
-createStudentFromForm()
-
-formDataInLocalStorage();
-
-filterStudents()
 
 function renderStudOrEmptyArrFromLocal(){
   localStorageStudentsData = JSON.parse(localStorage.getItem('localStorageStudentData'))
@@ -165,12 +159,30 @@ function formDataInLocalStorage() {
 
 
   // --- Varda is storage ideda i forma
-  nameInput.value = localName;
-  surnameInput.value = localSurname;
-  ageInput.value = localAge;
-  phoneInput.value = localPhone;
-  emailInput.value = localEmail;
-  itKnowledgeInput.value = localItKnowledge;
+
+  if (localName){
+    nameInput.value = localName;
+  }
+  if (localSurname){
+    surnameInput.value = localSurname;
+  }
+  if (localAge){
+    ageInput.value = localAge;
+  }
+  if (localAge){
+    ageInput.value = localAge;
+  }
+  if (localPhone){
+    phoneInput.value = localPhone;
+  }
+  if (localEmail){
+    emailInput.value = localEmail;
+  }
+  if (localItKnowledge){
+    itKnowledgeInput.value = localItKnowledge;
+  }
+
+
   if (groupInputAll) {
     groupInputAll.forEach(groupInput =>{
       if (groupInput.value === localGroup) {
@@ -376,3 +388,13 @@ searchForm.addEventListener("submit", (eventSubmit) => {
   })
 })
 }
+function init(){
+  renderStudOrEmptyArrFromLocal()
+  
+  createStudentFromForm()
+  
+  formDataInLocalStorage();
+  
+  filterStudents()
+}
+init()
